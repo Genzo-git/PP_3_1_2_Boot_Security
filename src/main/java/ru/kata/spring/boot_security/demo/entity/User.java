@@ -62,10 +62,6 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
     public void setUsername(String name) {
         this.username = name;
     }
@@ -110,6 +106,12 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+
+    @Override
+    public String getUsername() {
+        return username;
     }
 
     @Override

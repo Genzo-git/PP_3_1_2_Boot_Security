@@ -23,17 +23,14 @@ public class AdminController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    ////////////////////!!!!!!!!!
-    @GetMapping("") // Работает но не работает update add
+    @GetMapping
     public String showAllUsers(Model model) {
         List<User> allUsrs = userService.getAllUsers();
         model.addAttribute("allUsrs", allUsrs);
-        //model.addAttribute("allUsrs", userService.getAllUsers());
         return "all-users";
     }
 
     @GetMapping("/addNewUser")
-    // запускается admin/addNewUser (показывает по факту user-info пустую)  но при добавлении пользователя 8080/saveUser и 404
     public String addNewUser(Model model) {
 
         User user = new User();
@@ -42,7 +39,7 @@ public class AdminController {
         return "user-info";
     }
 
-    @PostMapping("saveUser") // ничего не происходит вообще
+    @PostMapping("saveUser")
     public String saveUser(@ModelAttribute("user") User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.saveUser(user);
@@ -50,26 +47,22 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/updateInfo") // admin/updateInfo открывается но ошибка 400
+    @GetMapping("/updateInfo")
     public String updateUser(@RequestParam("usrId") int id, Model model) {
 
         User user = userService.getUser(id);
         model.addAttribute("user", user);
 
-        //model.addAttribute("user", userService.getUser(id));
-
         return "user-info";
     }
 
-    //////
     @PostMapping("/updateInfo")
     public String updateUser(User user) {
         userService.saveUser(user);
         return "redirect:/admin";
     }
-    /////
 
-    @GetMapping("/deleteUser") // admin/deleteUser открывается но ошибка 400
+    @GetMapping("/deleteUser")
     public String deleteUser(@RequestParam("usrId") int id) {
 
         userService.deleteUser(id);

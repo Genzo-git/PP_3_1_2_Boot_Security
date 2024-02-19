@@ -9,24 +9,20 @@
 <br>
 <div>
     <table>
-        <thead>
         <tr>
-            <th>Id</th>
-            <th>Username</th>
-            <th>Password</th>
-            <th>Surname</th>
-            <th>Age</th>
+            <td>Id</td>
+            <td>Username</td>
+            <td>Password</td>
+            <td>Surname</td>
+            <td>Age</td>
         </tr>
-        </thead>
-        <tbody>
-        <tr th:value="${user}">
-            <td th:text="${user.getId()}">Id</td>
-            <td th:text="${user.getUsername()}">Username</td>
-            <td th:text="${user.getPassword()}">Password</td>
-            <td th:text="${user.getSurname()}">Surname</td>
-            <td th:text="${user.getAge()}">Age</td>
+        <tr th:object="${user}">
+            <td th:text="${user.getId()}"></td>
+            <td th:text="${user.getUsername()}"></td>
+            <td th:text="${user.getPassword()}"></td>
+            <td th:text="${user.getSurname()}"></td>
+            <td th:text="${user.getAge()}"></td>
         </tr>
-        </tbody>
     </table>
 </div>
 <form th:action="@{/logout}">

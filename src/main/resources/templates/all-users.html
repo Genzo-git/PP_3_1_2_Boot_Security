@@ -15,6 +15,7 @@
             <th>Password</th>
             <th>Surname</th>
             <th>Age</th>
+            <th>Role</th>
             <th>Operations</th>
         </tr>
         </thead>
@@ -24,6 +25,7 @@
             <td th:text="${usrs.password}"></td>
             <td th:text="${usrs.surname}"></td>
             <td th:text="${usrs.age}"></td>
+            <td th:text="${usrs.getRoles()}"></td>
             <td>
                 <a th:href="@{admin/updateInfo(usrId=${usrs.id})}">
                     <input type="submit" value="Update"/>

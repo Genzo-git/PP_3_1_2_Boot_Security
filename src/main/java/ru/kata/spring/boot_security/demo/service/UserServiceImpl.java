@@ -46,5 +46,10 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUsername(username);
     }
 
+    @Override
+    public List<User> findAllWithRoles() {
+        return userRepository.findAllWithRoles();
+    }
+
 
 }

@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -19,8 +20,8 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+    //@Column(name = "id")
+    private Integer id;
 
     @Column(name = "username")
     private String username;
@@ -29,7 +30,7 @@ public class User implements UserDetails {
     private String surname;
 
     @Column(name = "age")
-    private int age;
+    private Integer age;
 
     @Column(name = "password")
     private String password;
@@ -45,20 +46,21 @@ public class User implements UserDetails {
 
 
     public User() {
+        this.roles = new HashSet<>();
     }
 
-    public User(String username, String surname, int age, String password) {
+    public User(String username, String surname, Integer age, String password) {
         this.username = username;
         this.surname = surname;
         this.age = age;
         this.password = password;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -74,11 +76,11 @@ public class User implements UserDetails {
         this.surname = surname;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 

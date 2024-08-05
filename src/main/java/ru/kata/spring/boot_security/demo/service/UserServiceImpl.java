@@ -1,8 +1,10 @@
 package ru.kata.spring.boot_security.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.kata.spring.boot_security.demo.entity.User;
 import ru.kata.spring.boot_security.demo.repository.UserRepository;
@@ -12,7 +14,12 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    public void setPasswordEncoder(@Lazy PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -22,16 +29,23 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll();
     }
 
-    public void saveUser(User user) {
-        //passwordEncoder???
-        userRepository.save(user);
-    }
-
-    public User getUser(int id) {
+    public User getUser(Integer id) {
         return userRepository.getById(id);
     }
 
-    public void deleteUser(int id) {
+    @Override
+    public void createUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+    }
+
+    @Override
+    public void updateUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+    }
+
+    public void deleteUser(Integer id) {
         userRepository.deleteById(id);
 
     }
@@ -49,6 +63,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAllWithRoles() {
         return userRepository.findAllWithRoles();
+    }
+
+    @Override
+    public User findByIdWithRoles(Integer userId) {
+        return userRepository.findByIdWithRoles(userId);
     }
 
 

@@ -10,14 +10,18 @@ public interface UserService extends UserDetailsService {
 
     List<User> getAllUsers();
 
-    void saveUser(User user);
+    User getUser(Integer id);
 
-    User getUser(int id);
+    void createUser(User user);
 
-    void deleteUser(int id);
+    void updateUser(User user);
+
+    void deleteUser(Integer id);
 
     User findByUsername(String username);
 
     List<User> findAllWithRoles();
+
+    User findByIdWithRoles(Integer userId);
 
 }
